@@ -9,6 +9,8 @@ public class InicioUI extends javax.swing.JFrame {
 
     public InicioUI() {
         initComponents();
+        setLocationRelativeTo(null);
+    
     }
 
     @SuppressWarnings("unchecked")

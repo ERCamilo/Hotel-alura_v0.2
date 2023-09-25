@@ -1,5 +1,6 @@
 package com.mycompany.Controller;
 
+import com.mycompany.DBAdmin.AutenticadorDB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,25 +13,20 @@ public class ConexionController {
     private static Connection connectionReservas;
 
     public ConexionController() {
+//        ConexionController.url = AutenticadorDB.getUrl();
+//        ConexionController.user = AutenticadorDB.getUser();
+//        ConexionController.password = AutenticadorDB.getPassword();
     }
 
-//    public ConexionController(String url, String user, String password) {
-//        if (url == null) {
-//            this.url = "jdbc:mysql://localhost/control_de_stock?useTimezone=true&serverTimeZone=UTC";
-//        }
-//        if (user == null) {
-//            this.user = "root";
-//        }
-//        if (password == null) {
-//            this.password = "Erc159753.";
-//        }
-//    }
     public Connection obtenerConexion() {
 
-        String url = "jdbc:mysql://localhost/hotel_alura?useTimezone=true&serverTimeZone=UTC";
-        String user = "root";
-        String password = "Erc159753.";
         try {
+
+            AutenticadorDB abd = new AutenticadorDB();
+            String user = abd.getUser();
+            String url = abd.getUrl();
+            String password = abd.getPassword();
+
             Connection conection = DriverManager.getConnection(url, user, password);
             System.out.println("se inicio la conexion");
             return conection;
@@ -48,10 +44,12 @@ public class ConexionController {
 
         if (connectionHuespedes == null) {
 
-            String url = "jdbc:mysql://localhost/hotel_alura?useTimezone=true&serverTimeZone=UTC";
-            String user = "root";
-            String password = "Erc159753.";
             try {
+                AutenticadorDB abd = new AutenticadorDB();
+                String user = abd.getUser();
+                String url = abd.getUrl();
+                String password = abd.getPassword();
+
                 connectionHuespedes = DriverManager.getConnection(url, user, password);
                 System.out.println("se inicio la conexion");
 
@@ -71,10 +69,11 @@ public class ConexionController {
 
         if (connectionReservas == null) {
 
-            String url = "jdbc:mysql://localhost/hotel_alura?useTimezone=true&serverTimeZone=UTC";
-            String user = "root";
-            String password = "Erc159753.";
             try {
+                AutenticadorDB abd = new AutenticadorDB();
+                String user = abd.getUser();
+                String url = abd.getUrl();
+                String password = abd.getPassword();
                 connectionReservas = DriverManager.getConnection(url, user, password);
                 System.out.println("se inicio la conexion");
 
@@ -94,8 +93,6 @@ public class ConexionController {
         if (connectionHuespedes != null) {
             try {
                 connectionHuespedes.close();
-                System.out.println("se cerro la conexion");
-
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("error al cerrar la conexion");
@@ -112,8 +109,6 @@ public class ConexionController {
         if (connectionReservas != null) {
             try {
                 connectionReservas.close();
-                System.out.println("se cerro la conexion");
-
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("error al cerrar la conexion");

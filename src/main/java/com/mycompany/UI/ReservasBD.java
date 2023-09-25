@@ -7,13 +7,14 @@ import com.mycompany.Controller.ReservaController;
 import com.mycompany.Controller.TablaController;
 import java.awt.Color;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 
 public class ReservasBD extends javax.swing.JFrame {
 
-    HuespedController admHuesped = new HuespedController();
-    ReservaController admReservas = new ReservaController();
+     HuespedController admHuesped = new HuespedController();
+     ReservaController admReservas = new ReservaController();
+    
 
     public ReservasBD() {
         initComponents();
@@ -101,6 +102,17 @@ public class ReservasBD extends javax.swing.JFrame {
         Txt_filtro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Txt_filtroActionPerformed(evt);
+            }
+        });
+        Txt_filtro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Txt_filtroKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Txt_filtroKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Txt_filtroKeyTyped(evt);
             }
         });
         jPanel5.add(Txt_filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 219, 36));
@@ -291,19 +303,7 @@ public class ReservasBD extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        if (!"".equals(Txt_filtro.getText())) {
-
-            TablaController tc = new TablaController();
-            tc.buscar(Tabla_reservas, Txt_filtro);
-            tc.buscar(Tabla_huespedes, Txt_filtro);
-
-        } else {
-            admHuesped.listarHuesped();
-            admReservas.listarReserva();
-            admReservas.llenarTablaReservas(Tabla_reservas);
-            admHuesped.llenarTablaHuesped(Tabla_huespedes);
-        }
-
+        buscarEnTabla(admHuesped, admReservas, Tabla_reservas, Tabla_huespedes, Txt_filtro);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -359,22 +359,34 @@ public class ReservasBD extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_eliHuespedesActionPerformed
 
     private void Txt_filtroInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_Txt_filtroInputMethodTextChanged
-       if (!"".equals(Txt_filtro.getText())) {
-
-            TablaController tc = new TablaController();
-            tc.buscar(Tabla_reservas, Txt_filtro);
-            tc.buscar(Tabla_huespedes, Txt_filtro);
-
-        } else {
-            admHuesped.listarHuesped();
-            admReservas.listarReserva();
-            admReservas.llenarTablaReservas(Tabla_reservas);
-            admHuesped.llenarTablaHuesped(Tabla_huespedes);
-        }
-
+//        if (!"".equals(Txt_filtro.getText())) {
+//
+//            TablaController tc = new TablaController();
+//            tc.buscar(Tabla_reservas, Txt_filtro);
+//            tc.buscar(Tabla_huespedes, Txt_filtro);
+//
+//        } else {
+//            admHuesped.listarHuesped();
+//            admReservas.listarReserva();
+//            admReservas.llenarTablaReservas(Tabla_reservas);
+//            admHuesped.llenarTablaHuesped(Tabla_huespedes);
+//        }
 
 
     }//GEN-LAST:event_Txt_filtroInputMethodTextChanged
+
+    private void Txt_filtroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_filtroKeyTyped
+
+        buscarEnTabla(admHuesped, admReservas, Tabla_reservas, Tabla_huespedes, Txt_filtro);
+     }//GEN-LAST:event_Txt_filtroKeyTyped
+
+    private void Txt_filtroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_filtroKeyPressed
+        buscarEnTabla(admHuesped, admReservas, Tabla_reservas, Tabla_huespedes, Txt_filtro);
+    }//GEN-LAST:event_Txt_filtroKeyPressed
+
+    private void Txt_filtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_filtroKeyReleased
+        buscarEnTabla(admHuesped, admReservas, Tabla_reservas, Tabla_huespedes, Txt_filtro);
+    }//GEN-LAST:event_Txt_filtroKeyReleased
 
     public static void main(String args[]) {
 
@@ -402,6 +414,22 @@ public class ReservasBD extends javax.swing.JFrame {
         });
     }
 
+    static void buscarEnTabla(HuespedController admHuesped,
+     ReservaController admReservas,JTable Tabla_reservas, JTable Tabla_huespedes, JTextField Txt_filtro) {
+        admHuesped.listarHuesped();
+        admReservas.listarReserva();
+        admReservas.llenarTablaReservas(Tabla_reservas);
+        admHuesped.llenarTablaHuesped(Tabla_huespedes);
+
+        if (!"".equals(Txt_filtro.getText())) {
+
+            TablaController tc = new TablaController();
+            tc.buscar(Tabla_reservas, Txt_filtro);
+            tc.buscar(Tabla_huespedes, Txt_filtro);
+
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_ediHuespedes;

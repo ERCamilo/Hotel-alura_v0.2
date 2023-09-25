@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -14,6 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class TablaController {
+
+    static String quitarAcentos(String texto) {
+        return Normalizer.normalize(texto, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
 
     public static boolean tieneFilaElegida(JTable tabla) {
         return tabla.getSelectedRowCount() == 0 || tabla.getSelectedColumnCount() == 0;
@@ -177,7 +183,7 @@ public class TablaController {
     //buscar
     public void buscar(JTable tabla, JTextField filtro) {
 
-        String textoBuscado = filtro.getText().toLowerCase();
+        String textoBuscado = quitarAcentos(filtro.getText().toLowerCase());
 
         DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
 
@@ -188,10 +194,10 @@ public class TablaController {
             String fila = "";
 
             for (int x = numeroDeColumnas - 1; x >= 0; x--) {
-                try{
-                fila = fila + " " + modeloTabla.getValueAt(i, x).toString().toLowerCase();
-                }catch(Exception e){
-                  fila = fila + " ";  
+                try {
+                    fila = fila + " " + quitarAcentos(modeloTabla.getValueAt(i, x).toString().toLowerCase());
+                } catch (Exception e) {
+                    fila = fila + " ";
                 }
             }
 

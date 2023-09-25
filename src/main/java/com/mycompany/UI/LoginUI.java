@@ -1,19 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.UI;
 
 import com.mycompany.Controller.Autenticador;
 import com.mycompany.hotel.Login;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import javax.swing.plaf.synth.ColorType;
 
-/**
- *
- * @author the_b
- */
+
 public class LoginUI extends javax.swing.JFrame {
 
     public LoginUI() {
@@ -193,16 +186,16 @@ public class LoginUI extends javax.swing.JFrame {
         Login login = new Login(usuario,password);
         Autenticador aut = new Autenticador();
        
-//        var obtenerAutentificacion = aut.obtenerAutentificacion(login);
-//        
-//        if(obtenerAutentificacion){
+        var obtenerAutentificacion = aut.obtenerAutentificacion(login);
+        
+        if(obtenerAutentificacion){
         MenuPrincipalUI ui = new MenuPrincipalUI();
         ui.setVisible(true);
 
         dispose();
-//        }else{
-//            JOptionPane.showMessageDialog(null, "Datos incorrectos");
-//        }
+        }else{
+            JOptionPane.showMessageDialog(null, "Datos incorrectos");
+       }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
